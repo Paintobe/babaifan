@@ -1,0 +1,401 @@
+{% extends 'base.html' %}
+{% block jscss %}
+
+		<link rel="stylesheet" type="text/css" href="/static/css/header--footer.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/sidebar_wrap.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/carts.css"/>
+	
+		<script src="/static/js/jquery-1.12.3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/static/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/static/js/header--footer.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/static/js/sidebar.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/static/js/cart.js" type="text/javascript" charset="utf-8"></script>
+
+{% endblock %}
+{% block headerwarp %}
+		<!--页头部分开始-->
+		<div id="header_wrap" style="height: 160px;">
+{% endblock %}
+{% block zhuti %}
+				
+				<!--页头主体部分-->
+				<div class="top_main">
+					<!--logo-->
+					<div class="logo">
+						<img src="/static/img/800fang-logo.jpg" />
+					</div>
+					<!--搜索-->
+					<div class="top_search">
+						<form class="tm_search">
+							<input class="tm_search1" type="text" style="font-family: 'microsoft yahei';" placeholder="药品名称/功效/症状" value="" />
+							<input class="tm_search2" value="搜索" style="font-family: 'microsoft yahei';" type="submit">
+						</form>
+						<div class="recommend">
+							<ul>
+								<li><a href="#">金戈</a></li>
+								<li><a href="#">汇仁</a></li>
+								<li><a href="#">阿胶</a></li>
+								<li><a href="#">同仁堂</a></li>
+								<li><a href="#">六味地黄丸</a></li>
+								<li><a href="#">伟哥</a></li>
+								<li><a href="#">恩必普</a></li>
+								<li><a href="#">优甲乐</a></li>
+								<li><a href="#">希爱力</a></li>
+								<li><a href="#">开同</a></li>
+							</ul>
+						</div>
+					</div>
+					
+					<!--证  / 保-->
+					<div class="top_ensure">
+						<p class="top_ensure2">
+							<a href="http://www.800pharm.com/zhuanti/insurance/index.html" ><img class="ii2" src="/static/img/i-2.png" /></a>
+							<span>正品保险</span>
+						</p>
+						<p class="top_ensure1">
+							<img class="ii1" src="/static/img/i-1.png" />
+							<span>国A20140001</span>
+						</p>
+					</div>
+				</div>				
+				</div>
+		<!--页头部分结束-->
+
+{% endblock %}	
+{% block main %}
+
+		<!--页面主体  开始-->
+		<div class="main_sh_wp" id="main_sh_wp">
+			<div class="sh_wp_content">
+				<div class="swc_top">
+					<span>您当前的位置：</span>
+					<a href="{% url 'contents:index' %}">首页</a>
+					> 购物车
+				</div>
+                {% if not dataall %}
+
+                <!--购物车  无商品    开始-->
+                <div class="no_shp" style="display: block;">
+                    <div class="cont">
+                        <div class="lshp"></div>
+                        <div class="rshp">
+                            <span class="tit">您的购物车暂时是空的，您可以：</span>
+                            <span>去<a href="{% url 'contents:index' %}"> 首页 </a> 随便逛逛</span>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!--购物车  无商品    结束-->
+				{% else %}
+
+				<!--购物车  添加商品    开始 -->
+				<div class="shop_cart" id="shop_cart" style="display: block;">
+					<!--购物导向图   开始-->
+					<div class="m_pro m_cart">
+			        	<span class="p1"></span>
+			            <span class="p2"></span>
+			            <span class="p3"></span>
+			        </div>
+					<!--购物导向图   开始-->
+					
+					<!--列表   开始-->
+					<table width="1190" border="0" cellspacing="0" cellpadding="0" align="center" class="cart_t">
+			          <tr>
+			          	<th style="text-align:left;"  width="20"></th>
+{#			          	<th style="text-align:left;"  width="20"><input name="checkAll"  type="checkbox" checked="checked" /></th>#}
+			            <th width="375" class="pad">商品</th>
+			            <th width="180">会员价(元)</th>
+			            <th width="163">优惠</th>
+			            <th width="88">数量</th>
+			            <th width="88">小计</th>
+			            <th width="110">操作</th>
+			          </tr>
+
+			       	</table>				
+					<!--列表   结束-->
+
+					<!--加入的购物列表    开始 -->
+					<div class= "shop_content">
+                        {% for k,v in dataall.items %}
+
+                        <div class='shopper_main'>
+                            <div class='shopper_n'>
+{#                                <div class="shopChoose">药店：<a href="" target="_blank">香港草姬</a></div>#}
+                                <div class="shopChoose"><a href="" target="_blank"></a></div>
+                            </div>
+
+                            <table width="1188" class="cart_list" >
+                                <tr>
+                                    {% if v.selected == '1' %}
+                                        <td style="text-align:left; padding-left:10px;"  width="20" valign="top"><input class='select_check' type="checkbox" checked name="checkbox" value="{{ k }}" /></td>
+                                    {% else %}
+                                        <td style="text-align:left; padding-left:10px;"  width="20" valign="top"><input class='select_check' type="checkbox" name="checkbox" value="{{ k }}" /></td>
+                                    {% endif %}
+                                    <td width="375"><div class="b_pord"><p class="pic"><a href=""><img id="goodImg" src="{{ v.img }}" style="width: 58px; height: 58px;"/></a></p><p class="pord_n"><a href="" title="" target="_blank">{{ v.name }}</a></p></div></td>
+                                    <td width="180"><div class="b_price"><p class="m_price">市场价：<del>{{ v.price2 }}</del></p><p class="s_price">会员价：<span class="price">{{ v.price }}</span></p></div></td>
+                                    <td width="163"><p class="pref">全场满500送惊喜大礼包</p></td>
+                                    <td width="88"><div class="mo_num"><span class="rec"></span><input type="text" class="num"  value="{{ v.num }}"maxlength="9" /><span class="add"></span></div><span id="testKucun" class="cart_storage_tips">库存足够</span></td>
+                                    <td width="88"><p class="s_total"><span class="st"></span></p></td>
+                                    <td width="110"><span class="opt"><span class="clearCart1">删除</span></span></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        {% endfor %}
+                    </div>
+					<!--加入的购物列表    结束 -->	
+						
+					<!--结算    star-->
+					<div class="b_total">
+						<div class="total_choose">
+							<input type="checkbox" class="select_all_check" name="checkAll" checked /><label>全选  </label><span id="clearCarts">删除</span>
+						</div>
+						<p class="total">商品原总价（不含运费）：<span class="t_price" id="allTotal">￥<span class="amount" >0.00</span></span></p>
+                        <a href="{% url 'orders:order' %}" id="add_order"><input type="button" id="buy_btn" class="buy_btn" value="去结算"/></a>
+{#                        <a href="#" id="buy_btn" class="buy_btn">去结算</a>#}
+					</div>	
+					<!--结算    end-->					
+				</div>
+				<!--购物车  添加商品    结束 -->
+                {% endif %}
+			</div>
+		</div>		
+		<!--页面主体  结束-->
+
+    <script>
+        {#    页面刷新时判断选中栏状态#}
+        function cacl() {
+        {#    遍历所有商品#}
+            var totalprice = 0;
+
+            {#设置标志位，判断$('.menuList').each()是否为空，避免购物车商品全部移除时总价不清零#}
+            var flag = 0;
+            $('.shopper_main').each(function () {
+            {#    筛选出选中的商品#}
+                flag = 1;
+                if($(this).find('.select_check').prop('checked')){
+                    var price = parseFloat($(this).find('.price').text());
+                    var num = parseInt($(this).find('.num').val());
+                    {#计算总价#}
+                    totalprice += price*num
+                }
+            {#    将totalprice赋值给总价#}
+                $('.amount').text(totalprice.toFixed(2));
+            });
+            if(flag === 0){
+                $('.amount').text(0.00);
+            }
+        }
+
+        function show_all_selected(){
+            var flag = true;
+            $('.select_check').each(function () {
+
+                if (!$(this).prop('checked')) {
+                    flag = false;
+                    return false;
+                }
+            });
+            if(flag){
+                $('.select_all_check').prop('checked',true)
+            }else{
+                $('.select_all_check').prop('checked',false)
+            }
+        }
+
+        $(function(){
+            show_all_selected();
+            cacl();
+            {#商品增加的点击事件#}
+            $(".add").click(function () {
+                {#找到商品数量#}
+                var num = parseInt($(this).siblings("input").val());
+                {#console.log(typeof num);#}
+                num += 1;
+                $(this).siblings("input").val(num);
+
+
+                {#获取商品id和数量#}
+                {#var gid = $('.select_check').val();#}
+                var gid = $(this).parent().parent().parent().find('.select_check').val();
+                var count = num;
+                var selected = $(this).parent().parent().find('.select_check').prop('checked') ? '1' : '0';
+
+                {#计算总价#}
+                cacl();
+
+                $.ajax({
+                    url:{% url 'carts:savadata' %},
+                    type:'post',
+                    data:{
+                        "id" : gid,
+                        "num" : count,
+                        'selected':selected
+                    },
+                    dataType : 'json',
+                    headers : {'X-CSRFToken':'{{  csrf_token  }}'},
+                    success : function (data) {
+                        $('#spoNum').text(data.allnum);
+                    }
+                })
+            });
+
+            {#商品减少的点击事件#}
+            $(".rec").click(function () {
+                {#找到商品数量#}
+                var num = parseInt($(this).siblings("input").val());
+                {#console.log(typeof num);#}
+
+                num -= 1;
+
+                if (num === 0){
+                    num = 1
+                }
+
+                $(this).siblings("input").val(num);
+
+                {#获取商品id和数量#}
+                {#var gid = $('.select_check').val();#}
+                var gid = $(this).parent().parent().parent().find('.select_check').val();
+                var count = num;
+                var selected = $(this).parent().parent().find('.select_check').prop('checked') ? '1' : '0';
+
+                {#计算总价#}
+                cacl();
+
+                $.ajax({
+                    url:{% url 'carts:savadata' %},
+                    type:'post',
+                    data:{
+                        "id" : gid,
+                        "num" : count,
+                        'selected':selected
+                    },
+                    dataType : 'json',
+                    headers : {'X-CSRFToken':'{{  csrf_token  }}'},
+                    success : function (data) {
+                        $('#spoNum').text(data.allnum);
+                    }
+                })
+            });
+
+            $('.select_check').click(function () {
+                {# 将商品id和选中状态以及数量传递给后端 #}
+                var gid = $(this).val();
+                var count = $(this).parent().parent().find('.num').val();
+                var selected = $(this).prop('checked') ? '1' : '0';
+
+                {#计算总价#}
+                cacl();
+                {#判断全选状态栏状态#}
+                show_all_selected();
+
+                $.ajax({
+                    url : '{% url "carts:savadata" %}',
+                    type : 'post',
+                    dataType : 'json',
+                    headers : {'X-CSRFToken':"{{ csrf_token }}"},
+                    data : {
+                        'id' : gid,
+                        'num' : count,
+                        'selected' : selected
+                    },
+                    success : function (data) {
+
+                    }
+                })
+
+            });
+
+
+            $('.select_all_check').click(function () {
+                {#同步全选框和所有子选框#}
+                $('.select_check').prop('checked',$(this).prop('checked'));
+                {#$('#select_check').each(function () {#}
+                {#    $(this).prop('checked',$(this).prop('checked'));#}
+                {#);#}
+                var selected = $(this).prop('checked') ? '1' : '0';
+
+                {#计算总价#}
+                cacl();
+                 {#同步cookie中的selected状态#}
+                $.ajax({
+                    url : '{% url "carts:selects" %}',
+                    type : 'post',
+                    dataType : 'json',
+                    headers : {'X-CSRFToken':"{{ csrf_token }}"},
+                    data : {
+                        'selected' : selected
+                    },
+                    success : function (data) {
+
+                    }
+                })
+            });
+
+
+            $('.clearCart1').click(function () {
+                var id = $(this).parent().parent().parent().find('.select_check').val();
+                $(this).parent().parent().parent().parent().parent().parent().remove();
+
+                show_all_selected();
+                cacl();
+
+                window.location.reload();
+
+                $.ajax({
+                    url:{% url 'carts:remove' %},
+                    data:{
+                        'id':id
+                    },
+                    type:'post',
+                    dataType:'json',
+                    headers:{'X-CSRFToken':'{{ csrf_token }}'},
+                    success:function (data) {
+                        $('#spoNum').text(data.allnum);
+                    }
+                })
+            });
+            $('#clearCarts').click(function () {
+                $('.shopper_main').remove();
+                window.location.reload();
+                $.ajax({
+                    url:{% url 'carts:removeall' %},
+                    type:'post',
+                    dataType:'json',
+                    headers:{'X-CSRFToken':'{{ csrf_token }}'},
+                    success:function (data) {
+                        $('#spoNum').text(data.allnum);
+                    }
+                })
+            });
+            $('#add_order').click(function(){
+
+            {## 判断所有的复选框都不选中#}
+            var flag = false;
+
+            $('.select_check').each(function () {
+                 if($(this).prop("checked")){
+                     flag = true;
+                     return {# 跳出循环 #}
+                 }
+            });
+
+            if(!flag){
+                {#禁止a标签跳转#}
+                return false
+            }
+
+        })
+
+        });
+
+
+    </script>
+
+
+{% endblock %}
+		
+		
+
