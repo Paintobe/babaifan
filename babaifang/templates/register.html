@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% block jscss %}
+
+
+		<link rel="stylesheet" type="text/css" href="/static/css/header--footer.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/register.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/sidebar_wrap.css"/>
+		
+		<script src="/static/js/jquery-1.12.3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/static/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/static/js/sidebar.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/static/js/header--footer.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/static/js/register.js" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+{% block headerwarp %}
+
+
+		<!--页头部分开始-->
+		<div id="header_wrap" style="height: 140px;">
+{% endblock %}
+{% block zhuti %}
+
+			
+				<!--页头主体部分-->
+				<div class="top_main" style="margin-bottom: 0;">
+					<!--logo-->
+					<div class="logo">
+						<img src="/static/img/800fang-logo.jpg" />
+					</div>					
+					<!--证  / 保-->
+					<div class="top_ensure">
+						<p class="top_ensure2">
+							<a href="http://www.800pharm.com/zhuanti/insurance/index.html" ><img class="ii2" src="/static/img/i-2.png" /></a>
+							<span>正品保险</span>
+						</p>
+						<p class="top_ensure1">
+							<img class="ii1" src="/static/img/i-1.png" />
+							<span>国A20140001</span>
+						</p>
+					</div>
+				</div>				
+				</div>
+		<!--页头部分结束-->
+{% endblock %}			
+{% block main %}
+
+
+		<!-- 注册   开始 -->
+		<div class="w1190" id="classify">
+			<div class="nike"><span>当前位置：</span><a href="{% url 'contents:index' %}" > 首页 > </a><a href="" > 注册 > </a> 创建账户</div>
+			<div class="bd">
+				<div class="hd">
+					<p class="tit">注册新用户</p>
+					<div class="reg_txt">
+						已有八百方账号？
+						<a href="#" target="_blank">点击登录</a>
+					</div>
+				</div>
+			</div>
+			<ul class="b_tab">
+				<li class="cur">手机注册</li>
+				<li class="">邮箱注册</li>
+			</ul>
+			<div class="b_form">
+				<form class="form" method="post">
+                    {% csrf_token %}
+					<div class="input_list">
+	                    <p class="b_name">手机号：</p>
+						<div class="b_input"><input name="mobile" placeholder="手机号码" type="text" id="r_mobile" class="input"  /></div>
+						<p class="b_tips">
+							<span class="tips" id="r_mobileTip" style="display: block;">请输入你的手机号码</span>
+							<span class="tips" id="r_mobileTip1" style="display: none;">号码格式错误,请输入11位数手机号码</span>
+							<span class="tips" id="r_mobileTip2" style="display: none;">手机号输入正确</span>
+						</p>
+					</div>
+
+	                <div class="input_list">
+	                    <p class="b_name">密码：</p>
+						<div class="b_input"><input name="pwd" placeholder="密码" id="r_pwd" type="password" class="input" value=""   /></div>
+						<p class="b_tips">
+							<span class="tips" id="r_pwdTip" style="display: block;" >密码在6-16个字符内</span>
+							<span class="tips" id="r_pwdTip1" style="display: none;">密码在6-16个字符内</span>
+							<span class="tips" id="r_pwdTip2" style="display: none;">输入正确</span>
+						</p>
+					</div>
+
+					<div class="input_list">
+	                    <p class="b_name">确认密码：</p>
+						<div class="b_input"><input name="pwd2" placeholder="确认密码" id="r_pwd2" type="password" class="input" value="" maxlength="16"/></div>
+						<p class="b_tips">
+							<span class="tips" id="r_pwd2Tip" style="display: block;">请再次输入密码</span>
+							<span class="tips" id="r_pwd2Tip1" style="display: none;">输入密码有误 或 和上面的不一致</span>
+							<span class="tips" id="r_pwd2Tip2" style="display: none;">输入正确</span>
+						</p>
+					</div>
+              	<!--获取手机验证码-->
+	                <div class="input_list">
+	                	<div class="phone_btn">
+							<input type="button" id="sendMobile" value="获取手机验证码" />
+						</div>
+						<!--输入验证码-->
+	                    <div class="b_input nobg b_hide" style="display: block; margin:0px 5px 0 15px; width: 140px; height: 32px; background: none;">
+	                    	<input name="licence"  placeholder="输入验证码" type="text" id="r_licence" class="ident" value="" maxlength="4"/>
+	                    	<input name="licence2" type="text"  class="ident_num"  value="" maxlength="4" title="看不清,换一张"/>
+	                    </div>
+	                </div>
+                <!--手机验证码-->
+					<div class="input_list">
+	                    <p class="b_name">手机验证码：</p>
+						<div class="b_input">
+							<input name="mobileLicence" id="mobileLicence" type="text" class="input" value="" maxlength="4"  />
+						</div>
+						<p class="b_tips">
+							<span class="tips" id="mobileLicenceTip">请输入验证码</span>
+						</p>
+					</div>
+
+{#				<!--得到手机验证码-->#}
+{#	                <div type="button" id="sp_checkMobile" style=" border: 1px solid gray; font: 32px/65px '微软雅黑'; color: red; position: absolute; z-index: 100; top:45%; left: 58%; width: 100px; height: 100px; background: gainsboro;  text-align: center; display: none;">#}
+{#						<p style="display: block;border-bottom: 1px dashed gray; height: 20px; text-align: center;line-height: 20px; font-size: 14px; color: #1291EB;">手机验证码</p>#}
+{#						<span class="math"></span>#}
+{#					</div>	#}
+				<!--注册-->	
+					<input name="button" class="reg_btn" type="button" value="注册" />
+				</form>
+			</div>
+			
+			
+		</div>	
+		<!-- 注册   结束 -->
+    <script>
+    {#$('').click(function () {#}
+    $('#sendMobile').click(function () {
+        {#console.log($('.ident_num').val());#}
+        {#获取输入框中的值#}
+        var phone = $('#r_mobile').val();
+        {#点击之后禁用按钮#}
+        $(this).prop('disabled',true);
+
+        var num = 60;
+        $(this).val(num+'秒');
+        var t = setInterval(()=>{
+            num -= 1;
+            $(this).val(num+'秒');
+            if(num === 0){
+                clearInterval(t);
+                {#清除之后启动按钮#}
+                $(this).prop('disabled',false);
+                $(this).val("获取手机验证码");
+            }
+        },1000);
+
+
+        $.ajax({
+                url:{% url 'user:sendsms' %},
+                type:'post',
+                data:{
+                    "phone" : phone
+                },
+                dataType : 'json',
+                headers : {'X-CSRFToken':'{{  csrf_token  }}'},
+                success : function (data) {
+                    if (data.res == 'yes'){
+                        alert('短信发送成功')
+                    } else{
+                        alert('短信发送失败')
+                    }
+                }
+            })
+
+
+    })
+
+    </script>
+{% endblock %}	
+		
+
+
+
